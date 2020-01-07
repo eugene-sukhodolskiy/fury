@@ -45,12 +45,15 @@ class Router{
 	}
 
 	public function start_routing(){
-		$this -> GET_and_POST_routing($this -> routes_map['get'], $_GET);
-		$this -> GET_and_POST_routing($this -> routes_map['post'], $_POST);
-		$this -> URI_routing($this -> routes_map['uri']);
+		$result = [];
+
+		$result['get'] = $this -> GET_and_POST_routing($this -> routes_map['get'], $_GET);
+		$result['post'] = $this -> GET_and_POST_routing($this -> routes_map['post'], $_POST);
+		$result['uri'] = $this -> URI_routing($this -> routes_map['uri']);
 	}
 
 	private function URI_routing($routes_map_part){
+		$result_routes_templates = [];
 		if(isset($routes_map_part[$this -> uri])){
 			$this -> call_action(false, $this -> uri, $routes_map_part[$this -> uri]);
 		}else{
@@ -60,7 +63,13 @@ class Router{
 				$params[$template] = $this -> required_params_from_uri($template, $this -> uri);
 				$this -> call_action(false, $template, $routes_map_part[$template], $params[$template]);
 			}
+			$result_routes_templates[] = [
+				'routes_templates' => $routes_templates,
+				'params' => $params
+			];
 		}
+
+		return $result_routes_templates;
 	}
 
 	private function searching_route_by_uri($routes_map, $uri){
@@ -97,6 +106,8 @@ class Router{
 	}
 
 	private function GET_and_POST_routing($routes_map_part, $vars){
+		$result_routes = [];
+
 		foreach ($routes_map_part as $route => $action) {
 			$route_vars = explode(';', $route);
 			$flag = true;
@@ -109,9 +120,12 @@ class Router{
 			}
 
 			if($flag){
+				$result_routes[$route] = $action;
 				$this -> call_action(true, $route, $action, $vars);
 			}
 		}
+
+		return $result_routes;
 	}
 
 	private function required_params_from_uri($route_template, $uri_path){
