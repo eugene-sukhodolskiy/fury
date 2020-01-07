@@ -11,6 +11,7 @@ class Bootstrap{
 		$this -> project_folder = $project_folder;
 		$this -> init_config();
 		$this -> init_db();
+		$this -> init_routes();
 	}
 
 	private function init_config(){
@@ -30,8 +31,8 @@ class Bootstrap{
 
 	private function init_routes(){
 		// init router
-		if(isset(F_CONFIG['route_map_file'])){
-			$path_to_routes_map_file = "{$this -> project_folder}/{F_CONFIG['routes_map_file']}";
+		if(isset(F_CONFIG['routes_map_file'])){
+			$path_to_routes_map_file = "{$this -> project_folder}/" . F_CONFIG['routes_map_file'];
 			if(file_exists($path_to_routes_map_file)){
 				include_once($path_to_routes_map_file);
 			}

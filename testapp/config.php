@@ -10,5 +10,5 @@ return [
 		"user" => "root",
 		"password" => ""
 	],
-	"route_map_file" => "routes.map.php"
+	"routes_map_file" => "routes.map.php"
 ];
