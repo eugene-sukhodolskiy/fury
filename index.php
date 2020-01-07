@@ -2,4 +2,4 @@
 
 include_once "fury/fury.php";
 
-fury_init("TestApp");
+$app = fury_init("TestApp");

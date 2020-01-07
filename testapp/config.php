@@ -2,6 +2,7 @@
 
 return [
 	"appname" => "test APP",
+	"debug" => true,
 	"db" => [
 		"dblib" => "mysql",
 		"host" => "localhost",
