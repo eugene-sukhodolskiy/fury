@@ -156,7 +156,7 @@ class Router{
 			$this -> action_result(call_user_func_array($action, $final_action_params));
 		}else{
 			list($action_class, $action_meth) = explode('@', $action);
-			$class_object = new $action_class();
+			$class_object = call_user_func_array([$action_class, 'ins'], []);
 			$ref_class = new \ReflectionClass($action_class);
 			$real_action_params = $ref_class -> getMethod($action_meth) -> getParameters();
 			$final_action_params = [];

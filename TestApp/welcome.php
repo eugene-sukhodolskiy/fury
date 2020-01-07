@@ -2,7 +2,7 @@
 
 namespace TestApp;
 
-class Welcome{
+class Welcome extends \Fury\Kernel\Controller{
 	public function hello($var1, $var2){
 		echo "{$var1} {$var2}";
 	}
