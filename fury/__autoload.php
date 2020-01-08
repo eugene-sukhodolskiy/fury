@@ -1,7 +1,10 @@
 <?php
 
+// classes autoload
+
 spl_autoload_register(function($classname){
-	$classname_lwrcase = strtolower($classname);
-	$class_file = str_replace("\\", "/", $classname_lwrcase) . ".php";
-	include_once $class_file;
+	$class_file_path = str_replace("\\", "/", $classname) . ".php";
+	if(file_exists($class_file_path)){
+		include_once $class_file_path;
+	}
 });

@@ -1,12 +1,17 @@
 <?php
 
-namespace Fury\Kernel;
+namespace Fury\Modules;
+
+use \Fury\Kernel\CallControl;
 
 class Router{
 	private $routes_map = ['get' => [], 'post' => [], 'uri' => []];
 	public $uri;
+	private $call_control_instance;
 
 	public function __construct($routes_map = NULL){
+		$this -> call_control_instance = CallControl::ins();
+
 		if(is_array($routes_map)){
 			$this -> routes_map = $routes_map;
 		}
@@ -55,13 +60,13 @@ class Router{
 	private function URI_routing($routes_map_part){
 		$result_routes_templates = [];
 		if(isset($routes_map_part[$this -> uri])){
-			$this -> call_action(false, $this -> uri, $routes_map_part[$this -> uri]);
+			$this -> call_control_instance -> call_action(false, $this -> uri, $routes_map_part[$this -> uri]);
 		}else{
 			$routes_templates = $this -> searching_route_by_uri($routes_map_part, $this -> uri);
 			$params = [];
 			foreach($routes_templates as $i => $template){
 				$params[$template] = $this -> required_params_from_uri($template, $this -> uri);
-				$this -> call_action(false, $template, $routes_map_part[$template], $params[$template]);
+				$this -> call_control_instance -> call_action(false, $template, $routes_map_part[$template], $params[$template]);
 			}
 			$result_routes_templates[] = [
 				'routes_templates' => $routes_templates,
@@ -121,7 +126,7 @@ class Router{
 
 			if($flag){
 				$result_routes[$route] = $action;
-				$this -> call_action(true, $route, $action, $vars);
+				$this -> call_control_instance -> call_action(true, $route, $action, $vars);
 			}
 		}
 
@@ -142,49 +147,5 @@ class Router{
 		return $params;
 	}
 
-	public function call_action($getpost_flag, $src_route, $action, $src_params = []){
 
-		// make final params;
-		if($getpost_flag){
-			$route = explode(';', $src_route);
-			$params = [];
-			foreach ($route as $i => $var) {
-				$params[$var] = $src_params[$var];
-			}
-		}else{
-			$params = $src_params;
-		}
-
-		// call action with params
-		if(is_object($action)){
-			$this -> action_result($action($params));
-		}elseif(strpos($action, '@') === false){
-			$ref_func = new \ReflectionFunction($action);
-			$real_action_params = $ref_func -> getParameters();
-			$final_action_params = [];
-			foreach ($real_action_params as $arg) {
-				if(isset($params[$arg -> name])){
-					$final_action_params[$arg -> name] = $params[$arg -> name];
-				}
-			}
-			$this -> action_result(call_user_func_array($action, $final_action_params));
-		}else{
-			list($action_class, $action_meth) = explode('@', $action);
-			$class_object = call_user_func_array([$action_class, 'ins'], []);
-			$ref_class = new \ReflectionClass($action_class);
-			$real_action_params = $ref_class -> getMethod($action_meth) -> getParameters();
-			$final_action_params = [];
-			foreach ($real_action_params as $arg) {
-				if(isset($params[$arg -> name])){
-					$final_action_params[$arg -> name] = $params[$arg -> name];
-				}
-			}
-
-			$this -> action_result(call_user_func_array([$class_object, $action_meth], $final_action_params));
-		}
-	}
-
-	private function action_result($result){
-		echo $result;
-	}
 }

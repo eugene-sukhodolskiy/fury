@@ -2,7 +2,7 @@
 
 namespace Fury\Kernel;
 
-class Events{
+class Events extends \Fury\Libs\Singleton{
 	/**
 	 * Events handlers storage (map)
 	 *
@@ -17,7 +17,7 @@ class Events{
 	 */
 	private $call_history = [];
 
-	public $event_types = ['kernel', 'app'];
+	public $event_types = ['kernel', 'app', 'module'];
 
 	public function __construct(){
 		$this -> map = [];

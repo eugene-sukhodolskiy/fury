@@ -8,7 +8,7 @@ class Welcome extends \Fury\Kernel\Controller{
 	}
 
 	public function testing(){
-		dd($this -> app());
+		return "Hello world";
 	}
 
 	public function testing_with_params($id, $post){

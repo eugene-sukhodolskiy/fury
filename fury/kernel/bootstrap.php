@@ -12,9 +12,6 @@ class Bootstrap{
 		$this -> project_folder = $project_folder;
 		$this -> init_config();
 		$this -> init_events();
-		$this -> events -> handler('kernel:init_db', function($params){
-			echo "INITITALIZATION DB WAS SUCCESS";
-		});
 		$this -> init_db();
 		$this -> init_routes();
 	}
@@ -31,7 +28,7 @@ class Bootstrap{
 		// init DB
 		if(isset(F_CONFIG['db'])){
 			$this -> db = new DB(F_CONFIG['db']);
-			$this -> events -> kernel_call('init_db', ['db' => $this -> db]);
+			// $this -> events -> kernel_call('init_db', ['db' => $this -> db]);
 		}
 	}
 
@@ -46,6 +43,6 @@ class Bootstrap{
 	}
 
 	private function init_events(){
-		$this -> events = new Events();
+		$this -> events = Events::ins();
 	}
 }
