@@ -4,9 +4,14 @@ namespace Fury\Kernel;
 
 class CallControl extends \Fury\Libs\Singleton{
 	private $events_ins;
+	private $bootstrap;
 
 	public function __construct(){
 		$this -> events_ins = Events::ins();
+	}
+
+	public function set_bootstrap_ins($bootstrap){
+		$this -> bootstrap = $bootstrap;
 	}
 
 	public function call_action($getpost_flag, $src_route, $action, $src_params = []){
@@ -59,7 +64,7 @@ class CallControl extends \Fury\Libs\Singleton{
 
 	private function call_for_class_meth($type, $src_template, $action, $params){
 		list($action_class, $action_meth) = explode('@', $action);
-		$class_object = call_user_func_array([$action_class, 'ins'], []);
+		$class_object = call_user_func_array([$action_class, 'ins'], [$this -> bootstrap]);
 		$ref_class = new \ReflectionClass($action_class);
 		$real_action_params = $ref_class -> getMethod($action_meth) -> getParameters();
 		$final_action_params = [];

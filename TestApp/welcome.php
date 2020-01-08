@@ -12,6 +12,7 @@ class Welcome extends \Fury\Kernel\Controller{
 	}
 
 	public function testing_with_params($id, $post){
+		// dd($this -> bootstrap());
 		return "ID: {$id} and POST: {$post}";
 	}
 }

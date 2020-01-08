@@ -7,12 +7,14 @@ class Bootstrap{
 	public $db;
 	public $router;
 	public $events;
+	public $call_control;
 
 	public function __construct($project_folder){
 		$this -> project_folder = $project_folder;
 		$this -> init_config();
 		$this -> init_consts();
 		$this -> init_events();
+		$this -> init_call_control();
 		$this -> init_db();
 		$this -> init_app_file();
 	}
@@ -48,5 +50,10 @@ class Bootstrap{
 
 	private function init_events(){
 		$this -> events = Events::ins();
+	}
+
+	private function init_call_control(){
+		$this -> call_control = CallControl::ins();
+		$this -> call_control -> set_bootstrap_ins($this);
 	}
 }
