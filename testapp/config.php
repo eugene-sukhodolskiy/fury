@@ -1,7 +1,7 @@
 <?php
 
 return [
-	"appname" => "test APP",
+	"app_name" => "test APP",
 	"debug" => true,
 	"db" => [
 		"dblib" => "mysql",
@@ -11,5 +11,5 @@ return [
 		"user" => "root",
 		"password" => ""
 	],
-	"routes_map_file" => "routes.map.php"
+	"app_file" => "app.php"
 ];
