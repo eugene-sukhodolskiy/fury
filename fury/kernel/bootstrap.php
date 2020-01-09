@@ -14,8 +14,8 @@ class Bootstrap{
 		$this -> init_config();
 		$this -> init_consts();
 		$this -> init_events();
-		$this -> init_app_file();
 		$this -> init_call_control();
+		$this -> init_app_file();
 		$this -> init_db();
 	}
 

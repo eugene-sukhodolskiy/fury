@@ -11,5 +11,6 @@ return [
 		"user" => "root",
 		"password" => ""
 	],
-	"app_file" => "app.php"
+	"app_file" => "app.php",
+	"templates_folder" => "templates"
 ];
