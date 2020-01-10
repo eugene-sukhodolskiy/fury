@@ -4,11 +4,43 @@ namespace Fury\Modules;
 
 use \Fury\Kernel\CallControl;
 
+/**
+ * Routing module
+ * Author: Eugene Sukhodolkiy
+ * Date: 09.01.2020
+ * LastUpdate: 11.01.2020
+ * Version: 0.1 beta
+ */
+
 class Router{
+	/**
+	 * Map of routes for routing
+	 *
+	 * @var array
+	 */
 	private $routes_map = ['get' => [], 'post' => [], 'uri' => []];
+
+	/**
+	 * Current URI REQUEST
+	 *
+	 * @var string
+	 */
 	public $uri;
+
+	/**
+	 * Instance of class CallControl
+	 *
+	 * @var CallControl
+	 */
 	private $call_control_instance;
 
+	/**
+	 * Constructor 
+	 *
+	 * @method __construct
+	 *
+	 * @param  array $routes_map Starting routes map
+	 */
 	public function __construct($routes_map = NULL){
 		$this -> call_control_instance = CallControl::ins();
 
@@ -23,6 +55,18 @@ class Router{
 		}
 	}
 
+	/**
+	 * Method for add new route by GET vars
+	 *
+	 * @method get
+	 *
+	 * @param  array $route [Array with vars names]
+	 * @param  $action [anon func or string name of function or Classname@methodname]
+	 *
+	 * @example get(['id', 'post'], 'Entry@article') [If exists variables 'id' and 'post' - must be call Entry class and article method]
+	 * 
+	 * @return void
+	 */
 	public function get($route, $action){
 		if(is_array($route)){
 			$route = implode(';', $route);
@@ -30,6 +74,18 @@ class Router{
 		$this -> add_route('get', $route, $action);
 	} 
 
+	/**
+	 * [Method for add new route by POST vars]
+	 *
+	 * @method post
+	 *
+	 * @param  array $route [Array with vars names]
+	 * @param  $action [anon func or string name of function or Classname@methodname]
+	 *
+	 * @example post(['id', 'post'], 'Entry@article') [If exists variables 'id' and 'post' - must be call Entry class and article method]
+	 * 
+	 * @return void
+	 */
 	public function post($route, $action){
 		if(is_array($route)){
 			$route = implode(';', $route);
@@ -37,18 +93,51 @@ class Router{
 		$this -> add_route('post', $route, $action);
 	}
 
+	/**
+	 * [Add new route by URI string]
+	 *
+	 * @method uri
+	 *
+	 * @param  string $route [String with path like '/post/id/$post_id']
+	 * @param  $action [anon func or string name of function or Classname@methodname]
+	 *
+	 * @return void
+	 */
 	public function uri($route, $action){
 		$this -> add_route('uri', $route, $action);
 	}
 
+	/**
+	 * [Add new route to routes map]
+	 *
+	 * @method add_route
+	 *
+	 * @param  [string] $method [Method of routing "GET_POST" or "URI"]
+	 * @param  [string or array] $route [uri route or array with vars names GET/POST]
+	 * @param  [string or function] $action [anon func or string name of function or Classname@methodname]
+	 */
 	private function add_route($method, $route, $action){
 		$this -> routes_map[$method][$route] = $action;
 	}
 
+	/**
+	 * Get current routes map
+	 *
+	 * @method get_routes_map
+	 *
+	 * @return [array] [Routes map]
+	 */
 	public function get_routes_map(){
 		return $this -> routes_map;
 	}
 
+	/**
+	 * Start Routing by GET/POST vars and URI
+	 *
+	 * @method start_routing
+	 *
+	 * @return [void]
+	 */
 	public function start_routing(){
 		$result = [];
 
@@ -57,6 +146,15 @@ class Router{
 		$result['uri'] = $this -> URI_routing($this -> routes_map['uri']);
 	}
 
+	/**
+	 * Implementation URI Routing
+	 *
+	 * @method URI_routing
+	 *
+	 * @param  [array] $routes_map_part [Part of routes map for URI routing]
+	 *
+	 * @return  [array] [Array with routes templates, that we need]
+	 */
 	private function URI_routing($routes_map_part){
 		$result_routes_templates = [];
 		if(isset($routes_map_part[$this -> uri])){
@@ -77,6 +175,16 @@ class Router{
 		return $result_routes_templates;
 	}
 
+	/**
+	 * Searching routes templates by current URI
+	 *
+	 * @method searching_route_by_uri
+	 *
+	 * @param  [array] $routes_map Where need searching
+	 * @param  [string] $uri Current URI
+	 *
+	 * @return [array] [Array with result searching]
+	 */
 	private function searching_route_by_uri($routes_map, $uri){
 		$results_routes_templates = [];
 
@@ -110,6 +218,14 @@ class Router{
 		return $results_routes_templates;
 	}
 
+	/**
+	 * Routing by GET and POST vars
+	 *
+	 * @method GET_and_POST_routing
+	 *
+	 * @param  [array] $routes_map_part [Array with routes templates]
+	 * @param  [array] $vars [Current vars GET or POST]
+	 */
 	private function GET_and_POST_routing($routes_map_part, $vars){
 		$result_routes = [];
 
@@ -133,6 +249,17 @@ class Router{
 		return $result_routes;
 	}
 
+
+	/**
+	 * Method for getting params from uri request by route template
+	 *
+	 * @method required_params_from_uri
+	 *
+	 * @param  [string] $route_template [Route template]
+	 * @param  [string] $uri_path [Current URI request]
+	 *
+	 * @return [array] [Array with result searching params]
+	 */
 	private function required_params_from_uri($route_template, $uri_path){
 		$route_template_parts = explode('/', $route_template);
 		$uri_parts = explode('/', $uri_path);
