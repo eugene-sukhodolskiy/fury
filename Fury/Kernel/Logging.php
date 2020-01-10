@@ -2,11 +2,31 @@
 
 namespace Fury\Kernel;
 
+/**
+ * Class for free logging
+ */
+
 class Logging extends \Fury\Libs\Singleton{
+	/**
+	 * Storage for session logs
+	 *
+	 * @var arrray
+	 */
 	protected $storage;
+
+	/**
+	 * Unique ID of SESSION
+	 *
+	 * @var string
+	 */
 	protected $session_id;
+
+	/**
+	 * Path to folder with logs
+	 *
+	 * @var string
+	 */
 	public $logs_folder;
-	public $project_folder;
 
 	public function __construct(){
 		if(!F_CONFIG['logs_enable'])
@@ -17,6 +37,15 @@ class Logging extends \Fury\Libs\Singleton{
 		$this -> logs_folder = F_CONFIG['logs_folder'];
 	}
 
+	/**
+	 * Set new log item
+	 *
+	 * @method set
+	 *
+	 * @param  string $place String in format "Classname@methname" or "funcname"
+	 * @param  string $title Title of log. 
+	 * @param  string $message Any text message
+	 */
 	public function set($place, $title, $message){
 		if(!F_CONFIG['logs_enable'])
 				return false;
@@ -39,6 +68,14 @@ class Logging extends \Fury\Libs\Singleton{
 		return true;
 	}
 
+
+	/**
+	 * Dumping session logs to json file
+	 *
+	 * @method dump
+	 *
+	 * @return boolean Result of writing to log file
+	 */
 	public function dump(){
 		$log_filename = date('d.m.Y') . '.log.json';
 		$path_to_log_file = $this -> logs_folder . '/' . $log_filename;
