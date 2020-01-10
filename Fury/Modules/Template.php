@@ -13,14 +13,18 @@ class Template{
 	public $template_name;
 	public $template_file;
 	public $template_content;
-	protected $template_extends;
+	protected $template_extends = ['flag' => false, 'srcname' => '', 'name' => '', 'object' => NULL];
+	public $was_drawn = false;
 
 	protected $inside_data;
+
+	public static $all_templates = [];
 
 	public function __construct($project_folder, $templates_folder, $parent = NULL){
 		$this -> project_folder = $project_folder;
 		$this -> templates_folder = $templates_folder;
 		$this -> parent = $parent;
+		self::$all_templates[] = $this;
 	}
 
 	public function make($template_name, $inside_data = []){
@@ -38,12 +42,12 @@ class Template{
 		$this -> template_name = $template_name;
 		$this -> template_file = $template;
 
-		if($this -> template_extends){
-			list($extends_object, $extends_template_name) = $this -> create_template_object($this -> template_extends);
-			$extends_object -> set_content($html);
-			$this -> template_html = $extends_object -> make($extends_template_name);
+		if($this -> template_extends['flag']){
+			$this -> template_extends['object'] -> set_content($html);
+			$this -> template_html = $this -> template_extends['object'] -> make($this -> template_extends['name']);
 		}
 		
+		$this -> was_drawn();
 		return $this -> template_html;
 	}	
 
@@ -94,8 +98,12 @@ class Template{
 	}
 
 	public function extends_from($extends_template_name){
-		$this -> template_extends = $extends_template_name;
-		// Нужно создавать объект уже тут, чтоб добавить его в childs, иначе не сработает
+		$this -> template_extends['flag'] = true;
+		$this -> template_extends['srcname'] = $extends_template_name;
+		list($child_template, $child_template_name) = $this -> create_template_object($extends_template_name);
+		$this -> template_extends['name'] = $child_template_name;
+		$this -> template_extends['object'] = $child_template;
+		$this -> template_childs[$this -> template_extends['srcname']] = $child_template;
 	}
 
 	public function set_content($content){
@@ -108,5 +116,9 @@ class Template{
 
 	public function get_inside_data(){
 		return $this -> inside_data;
+	}
+
+	private function was_drawn(){
+		$this -> was_drawn = true;
 	}
 }

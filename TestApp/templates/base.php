@@ -12,5 +12,8 @@
 	<main>
 		<?= $this -> content() ?>
 	</main>
+
+	<? dd(self::$all_templates) ?>
+	<? dd($this -> parent() -> was_drawn) ?>
 </body>
 </html>
