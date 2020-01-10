@@ -7,13 +7,12 @@ $router = new Router();
 
 $events = Events::ins();
 
+events_handlers($events);
 routes_map($router) -> start_routing();
 
-// events_handlers($events);
-
 function events_handlers($events){
-	$events -> handler('module:Router.ready', function($params){
-		
+	$events -> handler('module:Template.start_joining', function($params){
+		// dd($params);
 	});
 	return $events;
 }

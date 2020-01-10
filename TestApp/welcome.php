@@ -2,7 +2,7 @@
 
 namespace TestApp;
 
-use Fury\Modules\Template;
+use Fury\Modules\Template\Template;
 
 class Welcome extends \Fury\Kernel\Controller{
 	public function hello($var1, $var2){
