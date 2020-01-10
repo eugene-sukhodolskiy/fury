@@ -10,7 +10,7 @@ trait RouterImplementation{
 	 *
 	 * @var array
 	 */
-	private $routes_map = ['get' => [], 'post' => [], 'uri' => []];
+	protected $routes_map = ['get' => [], 'post' => [], 'uri' => []];
 
 	/**
 	 * Current URI REQUEST
@@ -24,7 +24,7 @@ trait RouterImplementation{
 	 *
 	 * @var CallControl
 	 */
-	private $call_control_instance;
+	protected $call_control_instance;
 
 	/**
 	 * Method for getting params from uri request by route template
@@ -36,7 +36,7 @@ trait RouterImplementation{
 	 *
 	 * @return [array] [Array with result searching params]
 	 */
-	private function required_params_from_uri($route_template, $uri_path){
+	protected function required_params_from_uri($route_template, $uri_path){
 		$route_template_parts = explode('/', $route_template);
 		$uri_parts = explode('/', $uri_path);
 		$params = [];
@@ -58,7 +58,7 @@ trait RouterImplementation{
 	 * @param  [array] $routes_map_part [Array with routes templates]
 	 * @param  [array] $vars [Current vars GET or POST]
 	 */
-	private function GET_and_POST_routing($routes_map_part, $vars){
+	protected function GET_and_POST_routing($routes_map_part, $vars){
 		$result_routes = [];
 
 		foreach ($routes_map_part as $route => $action) {
@@ -91,7 +91,7 @@ trait RouterImplementation{
 	 *
 	 * @return [array] [Array with result searching]
 	 */
-	private function searching_route_by_uri($routes_map, $uri){
+	protected function searching_route_by_uri($routes_map, $uri){
 		$results_routes_templates = [];
 
 		$uri_parts = explode('/', $uri);
@@ -133,7 +133,7 @@ trait RouterImplementation{
 	 *
 	 * @return  [array] [Array with routes templates, that we need]
 	 */
-	private function URI_routing($routes_map_part){
+	protected function URI_routing($routes_map_part){
 		$result_routes_templates = [];
 		if(isset($routes_map_part[$this -> uri])){
 			$this -> call_control_instance -> call_action(false, $this -> uri, $routes_map_part[$this -> uri]);
@@ -162,7 +162,7 @@ trait RouterImplementation{
 	 * @param  [string or array] $route [uri route or array with vars names GET/POST]
 	 * @param  [string or function] $action [anon func or string name of function or Classname@methodname]
 	 */
-	private function add_route($method, $route, $action){
+	protected function add_route($method, $route, $action){
 		$this -> routes_map[$method][$route] = $action;
 	}
 }
