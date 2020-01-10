@@ -12,5 +12,7 @@ return [
 		"password" => ""
 	],
 	"app_file" => "app.php",
-	"templates_folder" => "templates"
+	"templates_folder" => "templates",
+	"logs_enable" => true,
+	"logs_folder" => "logs"
 ];

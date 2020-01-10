@@ -8,11 +8,13 @@ class Bootstrap{
 	public $router;
 	public $events;
 	public $call_control;
+	public $logging;
 
 	public function __construct($project_folder){
 		$this -> project_folder = $project_folder;
 		$this -> init_config();
 		$this -> init_consts();
+		$this -> init_logging();
 		$this -> init_events();
 		$this -> init_call_control();
 		$this -> init_app_file();
@@ -55,5 +57,9 @@ class Bootstrap{
 	private function init_call_control(){
 		$this -> call_control = CallControl::ins();
 		$this -> call_control -> set_bootstrap_ins($this);
+	}
+
+	private function init_logging(){
+		$this -> logging = Logging::ins();
 	}
 }

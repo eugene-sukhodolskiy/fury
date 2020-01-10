@@ -56,6 +56,7 @@ class CallControl extends \Fury\Libs\Singleton{
 			}
 		}
 
+		Logging::ins() -> set('CallControl@call_for_simple_func', 'Calling controller function', "$type, $src_template, $action, $final_action_params");
 		$this -> gen_event_leading_call($type, $src_template, $action, $final_action_params);
 		$res = call_user_func_array($action, $final_action_params);
 		$this -> gen_event_completed_call($type, $src_template, $action, $final_action_params, $res);
@@ -74,6 +75,7 @@ class CallControl extends \Fury\Libs\Singleton{
 			}
 		}
 
+		Logging::ins() -> set('CallControl@call_for_simple_func', 'Calling controller class and method', "$type, $src_template, $action, $final_action_params");
 		$this -> gen_event_leading_call($type, $src_template, $action, $final_action_params);
 		$res = call_user_func_array([$class_object, $action_meth], $final_action_params);
 		$this -> gen_event_completed_call($type, $src_template, $action, $final_action_params, $res);
@@ -96,5 +98,7 @@ class CallControl extends \Fury\Libs\Singleton{
 
 	private function action_result($result){
 		echo $result;
+
+		Logging::ins() -> dump();
 	}
 }
