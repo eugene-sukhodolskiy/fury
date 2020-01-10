@@ -1,6 +1,6 @@
 <?php
 
-use Fury\Modules\Router;
+use Fury\Modules\Router\Router;
 use Fury\Kernel\Events;
 
 $router = new Router();

@@ -1,0 +1,15 @@
+[
+    {
+        "session_id": "5e1900602e0ea",
+        "timestamp": 1578696800.218652,
+        "logs": [
+            {
+                "class": "CallControl",
+                "meth": "call_for_simple_func",
+                "title": "Calling controller class and method",
+                "message": "URI, /base-template, \\TestAPP\\Welcome@template_test, Array",
+                "timestamp": 1578696800.216652
+            }
+        ]
+    }
+]
