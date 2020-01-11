@@ -24,4 +24,8 @@ class Welcome extends \Fury\Kernel\Controller{
 		);
 		return $template -> make('article', ['title' => 'Hello world']);
 	}
+
+	public function db_test($key, $val){
+		Options::ins() -> set($key, $val);
+	}
 }

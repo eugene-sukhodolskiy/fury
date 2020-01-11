@@ -12,6 +12,8 @@ class Bootstrap{
 
 	public function __construct($project_folder){
 		$this -> project_folder = $project_folder;
+
+		// init
 		$this -> init_config();
 		$this -> init_consts();
 		$this -> init_logging();
@@ -19,6 +21,9 @@ class Bootstrap{
 		$this -> init_call_control();
 		$this -> init_app_file();
 		$this -> init_db();
+		$this -> init_model();
+
+		$this -> ready_app();
 	}
 
 	private function init_config(){
@@ -61,5 +66,13 @@ class Bootstrap{
 
 	private function init_logging(){
 		$this -> logging = Logging::ins();
+	}
+
+	private function init_model(){
+		Model::ins($this -> db);
+	}
+
+	private function ready_app(){
+		$this -> events -> kernel_call('Bootstrap.ready_app', ['bootstrap' => $this]);
 	}
 }
