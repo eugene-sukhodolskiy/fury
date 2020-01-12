@@ -8,8 +8,8 @@ use \Fury\Kernel\CallControl;
  * Routing module
  * Author: Eugene Sukhodolkiy
  * Date: 09.01.2020
- * LastUpdate: 11.01.2020
- * Version: 0.1 beta
+ * LastUpdate: 12.01.2020
+ * Version: 0.2 beta
  */
 
 class Router implements RouterInterface{
@@ -79,5 +79,12 @@ class Router implements RouterInterface{
 		$route = array_search($action, $routes_list);
 
 		return $route === false ? '' : $route;
+	}
+
+	public function urlto(String $action, Array $params = []){
+		$route_template = $this -> route_to($action);
+		$route_params = $this -> get_params_from_route_template($route_template);
+		$url = str_replace($route_params, $params, $route_template);
+		return $url;
 	}
 }

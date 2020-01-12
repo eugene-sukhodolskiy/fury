@@ -165,4 +165,25 @@ trait RouterImplementation{
 	protected function add_route($method, $route, $action){
 		$this -> routes_map[$method][$route] = $action;
 	}
+
+	/**
+	 * Get Parameters from route template. Only for uri routes
+	 *
+	 * @method get_params_from_route_template
+	 *
+	 * @param  String $route_template 
+	 *
+	 * @return array
+	 */
+	protected function get_params_from_route_template(String $route_template){
+		$template_parts = explode('/', $route_template);
+		$params = [];
+		foreach ($template_parts as $part) {
+			if($part[0] == '$'){
+				$params[] = $part;
+			}
+		}
+
+		return $params;
+	}
 }

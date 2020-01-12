@@ -10,7 +10,10 @@ class Welcome extends Middleware\Controller{
 	}
 
 	public function testing(){
-		return $this -> router() -> route_to('\TestApp\Welcome@testing');
+		return $this -> router() -> urlto('\TestApp\Welcome@db_test', [
+			'key' => 'name',
+			'value' => 'Victor'
+		]);
 	}
 
 	public function testing_with_params($id, $post){
