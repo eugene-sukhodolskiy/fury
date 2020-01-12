@@ -10,7 +10,16 @@ class Welcome extends \Fury\Kernel\Controller{
 	}
 
 	public function testing(){
-		return "Hello world";
+		dd($this -> bootstrap());
+		dd([
+			"Name" => "John",
+			"Surname" => "Doe",
+			"Age" => 48,
+			"Student" => [
+				"University" => "ZDTU",
+				"Course" => 3
+			]
+		]);
 	}
 
 	public function testing_with_params($id, $post){

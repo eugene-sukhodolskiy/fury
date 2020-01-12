@@ -30,4 +30,12 @@ class DB{
 	public function get_connect(){
 		return $this -> connect;
 	}
+
+	public function query($sql, $params = NULL){
+		if(is_null($params)){
+			return $this -> connect -> query($sql);
+		}
+
+		return $this -> connect -> query($sql, $params);
+	}
 }

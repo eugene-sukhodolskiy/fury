@@ -20,5 +20,6 @@ function routes_map($router){
 	$rh = new RoutesHelper($router);
 	$rh -> uri() -> class('\TestApp\Welcome');
 	$router -> uri('/options/set/$key/$val', '\TestApp\Welcome@db_test');
+	$router -> uri('/', '\TestApp\Welcome@testing');
 	return $router;
 }
