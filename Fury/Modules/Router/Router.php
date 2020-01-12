@@ -68,4 +68,16 @@ class Router implements RouterInterface{
 		$result['post'] = $this -> GET_and_POST_routing($this -> routes_map['post'], $_POST);
 		$result['uri'] = $this -> URI_routing($this -> routes_map['uri']);
 	}
+
+	public function route_to(String $action){
+		$routes_list = [];
+
+		foreach($this -> routes_map as $map_part){
+			$routes_list = array_merge($routes_list, $map_part);
+		}
+
+		$route = array_search($action, $routes_list);
+
+		return $route === false ? '' : $route;
+	}
 }

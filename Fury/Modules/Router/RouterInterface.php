@@ -61,4 +61,17 @@ interface RouterInterface{
 	 * @return [void]
 	 */
 	public function start_routing();
+
+	/**
+	 * Get route by action
+	 *
+	 * @method route_to
+	 *
+	 * @param  String $action Controller in string
+	 *
+	 * @example  route_to('Welcome@home') [return like "/home"]
+	 *
+	 * @return [string] 
+	 */
+	public function route_to(String $action);
 }

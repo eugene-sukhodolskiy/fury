@@ -6,9 +6,11 @@ use Fury\Modules\RoutesHelper\RoutesHelper;
 
 events_handlers(Events::ins());
 
-function events_handlers($events){
-	$router = new Router();
+$router;
 
+function events_handlers($events){
+	global $router;
+	$router = new Router();
 	$events -> handler('kernel:Bootstrap.ready_app', function($params) use ($router){
 		routes_map($router) -> start_routing();
 	});	

@@ -4,22 +4,13 @@ namespace TestApp;
 
 use Fury\Modules\Template\Template;
 
-class Welcome extends \Fury\Kernel\Controller{
+class Welcome extends Middleware\Controller{
 	public function hello($var1, $var2){
 		echo "{$var1} {$var2}";
 	}
 
 	public function testing(){
-		dd($this -> bootstrap());
-		dd([
-			"Name" => "John",
-			"Surname" => "Doe",
-			"Age" => 48,
-			"Student" => [
-				"University" => "ZDTU",
-				"Course" => 3
-			]
-		]);
+		return $this -> router() -> route_to('\TestApp\Welcome@testing');
 	}
 
 	public function testing_with_params($id, $post){
