@@ -24,7 +24,8 @@ function events_handlers($events){
 
 function routes_map($router){
 	$rh = new RoutesHelper($router);
-	$rh -> uri() -> class('\TestApp\Welcome');
+	$rh -> get() -> class('\TestApp\Welcome');
 	$router -> uri('/', '\TestApp\Welcome@index');
+	// dd($router -> urlto('\TestApp\Welcome@index'));
 	return $router;
 }
