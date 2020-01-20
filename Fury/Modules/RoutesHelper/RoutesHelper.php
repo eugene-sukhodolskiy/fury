@@ -21,6 +21,8 @@ class RoutesHelper implements RoutesHelperInterface{
 	}
 
 	public function class(String $classname, Array $without = []){
+		$without = array_merge($this -> forbidden_to_create_for, $without);
+
 		$current_router_meth = $this -> router_meth;
 
 		$class = new \ReflectionClass($classname);
@@ -29,6 +31,10 @@ class RoutesHelper implements RoutesHelperInterface{
 		$result_routes = [];
 
 		foreach ($methods as $method){
+			if(in_array($method -> name, $without)){
+				continue;
+			}
+			
 			$action_str = "{$classname}@{$method -> name}";
 			$this -> change_routing_meth($current_router_meth);
 			$result_routes = $this -> method($action_str);

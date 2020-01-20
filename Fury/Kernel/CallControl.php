@@ -3,15 +3,20 @@
 namespace Fury\Kernel;
 
 class CallControl extends \Fury\Libs\Singleton{
-	private $events_ins;
-	private $bootstrap;
+	public $bootstrap;
+	public $call_was_been = false;
 
-	public function __construct(){
-		$this -> events_ins = Events::ins();
-	}
+	public function __construct($bootstrap = NULL){
+		if($bootstrap){
+			$this -> bootstrap = $bootstrap;
+		}
 
-	public function set_bootstrap_ins($bootstrap){
-		$this -> bootstrap = $bootstrap;
+		$this -> bootstrap -> events -> handler('kernel:Bootstrap.app_finished', function($params){
+			$call_control = CallControl::ins();
+			if(!$call_control -> call_was_been){
+				Events::ins() -> kernel_call('CallControl.no_calls', []);
+			}
+		});
 	}
 
 	public function call_action($getpost_flag, $src_route, $action, $src_params = []){
@@ -83,14 +88,16 @@ class CallControl extends \Fury\Libs\Singleton{
 	}
 
 	private function gen_event_leading_call($type, $route_template, $action, $params){
-		$this -> events_ins -> kernel_call(
+		$this -> call_was_been = true;
+		$this -> bootstrap -> events -> kernel_call(
 			'CallControl.leading_call', 
 			compact('type', 'route_template', 'action', 'params')
 		);
 	}
 
 	private function gen_event_completed_call($type, $route_template, $action, $params, $result){
-		$this -> events_ins -> kernel_call(
+		$this -> call_was_been = true;
+		$this -> bootstrap -> events -> kernel_call(
 			'CallControl.completed_call', 
 			compact('type', 'route_template', 'action', 'params', 'result')
 		);

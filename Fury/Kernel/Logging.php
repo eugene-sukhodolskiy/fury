@@ -29,12 +29,12 @@ class Logging extends \Fury\Libs\Singleton{
 	public $logs_folder;
 
 	public function __construct(){
-		if(!F_CONFIG['logs_enable'])
+		if(!FCONF['logs_enable'])
 				return false;
 
 		$this -> storage = [];
 		$this -> session_id = uniqid();
-		$this -> logs_folder = F_CONFIG['logs_folder'];
+		$this -> logs_folder = FCONF['logs_folder'];
 	}
 
 	/**
@@ -47,7 +47,7 @@ class Logging extends \Fury\Libs\Singleton{
 	 * @param  string $message Any text message
 	 */
 	public function set($place, $title, $message){
-		if(!F_CONFIG['logs_enable'])
+		if(!FCONF['logs_enable'])
 				return false;
 
 		if(strpos($place, '@') === false){

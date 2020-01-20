@@ -5,7 +5,7 @@ return [
 	"debug" => true,
 	"db" => [
 		"dblib" => "mysql",
-		"host" => "localhost",
+		"host" => "127.0.0.1",
 		"dbname" => "fury",
 		"charset" => "utf8",
 		"user" => "root",

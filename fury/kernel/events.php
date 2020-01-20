@@ -91,7 +91,7 @@ class Events extends \Fury\Libs\Singleton{
 	 * @return int Unique ID of handler call
 	 */
 	private function log_call_history($type, $event_name, $params){
-		if(!F_CONFIG['debug']){
+		if(!FCONF['debug']){
 			return false;
 		}
 
@@ -113,7 +113,7 @@ class Events extends \Fury\Libs\Singleton{
 	 * @param  any $result Result of working event handler
 	 */
 	private function add_result_to_log_call_history($log_id, $result){
-		if(!F_CONFIG['debug']){
+		if(!FCONF['debug']){
 			return false;
 		}
 

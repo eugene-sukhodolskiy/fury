@@ -23,7 +23,7 @@ function dd($var, $die_flag = true){
 			}
 
 			.dd-line{
-				padding: 10px 20px;
+				padding: 5px 20px;
 			}
 
 			.dd-margin{

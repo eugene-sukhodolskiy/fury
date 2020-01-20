@@ -9,6 +9,8 @@ trait RoutesHelperImplementation{
 
 	protected $router_meth;
 
+	protected $forbidden_to_create_for = ['ins', '__construct', 'bootstrap'];
+
 	protected function generate_route_by_method(String $classname, String $methname){
 		$class = new \ReflectionClass($classname);
 		$method = $class -> getMethod($methname);
