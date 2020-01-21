@@ -1,5 +1,5 @@
 <?php
 
-include_once "fury/fury.php";
+include_once "Fury/fury.php";
 
-$app = fury_init("TestApp");
+$app = fury_init("ToDo");
