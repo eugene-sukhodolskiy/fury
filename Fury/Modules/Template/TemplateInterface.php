@@ -3,6 +3,8 @@
 namespace Fury\Modules\Template;
 
 interface TemplateInterface{
+	public static function set_driver($driver);
+	
 	/**
 	 * Make and return html template
 	 *

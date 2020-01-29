@@ -2,8 +2,15 @@
 
 namespace Fury\Modules\Template;
 
+/**
+ * Class: Template
+ * @author Eugene Sukhodolskiy <e.sukhodolskiy@outlook.com>
+ * @version 0.1
+ * Date: 10.01.2020
+ */
+
 class Template implements TemplateInterface{
-	protected static $driver;
+	protected static $driver = false;
 
 	protected $parent;
 	protected $template_childs = [];
@@ -28,30 +35,20 @@ class Template implements TemplateInterface{
 		$this -> parent = $parent;
 		self::$all_templates[] = $this;
 
-		$this -> try_load_driver();
 		if(self::$driver){
-			self::$driver -> gen_event_create_template_instance($this);
+			self::$driver -> event_create_template_instance($this);
 		}
 	}
 
-	private function try_load_driver(){
-		if(self::$driver === false) 
-			return false;
-
-		if(!self::$driver){
-			if(class_exists('\Fury\Modules\Template\TemplateDriver', true)){
-				self::$driver = new TemplateDriver();
-			}else{
-				self::$driver = false;
-			}
-		}
+	public static function set_driver($driver){
+		self::$driver = $driver;
 	}
 
 	public function make($template_name, $inside_data = []){
 		$template = $this -> t_path($template_name);
 
 		if(self::$driver){
-			self::$driver -> gen_event_start_making($template_name, $template, $inside_data, $this);
+			self::$driver -> event_start_making($template_name, $template, $inside_data, $this);
 		}
 
 		$this -> inside_data = $inside_data;
@@ -88,7 +85,7 @@ class Template implements TemplateInterface{
 
 	public function join($child_template_name, array $inside_data = []){
 		if(self::$driver){
-			self::$driver -> gen_event_start_joining($child_template_name, $inside_data);
+			self::$driver -> event_start_joining($child_template_name, $inside_data);
 		}
 		list($child_template, $child_template_name) = $this -> create_template_object($child_template_name);
 		$this -> template_childs[$child_template_name] = $child_template;
@@ -149,7 +146,7 @@ class Template implements TemplateInterface{
 		$this -> was_drawn = true;
 
 		if(self::$driver){
-			self::$driver -> gen_event_ready_template($this -> template_name, $this);
+			self::$driver -> event_ready_template($this -> template_name, $this);
 		}
 	}
 }

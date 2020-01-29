@@ -1,28 +1,32 @@
 <?php
 
 /**
- * Driver for correctly connect Template module with Fury framework
+ * Description: Driver for correctly connect Template module with Fury framework
+ * Date: 29.01.2020
+ * @author Eugene SUkhodolskiy <e.sukhodolskiy@outlook.com>
+ * @version 0.1
  */
 
-namespace Fury\Modules\Template;
+namespace Fury\Drivers;
 
 use \Fury\Kernel\Events;
+use \Fury\Modules\Template\DriverInterface;
 
-class TemplateDriver{
+class TemplateDriver implements DriverInterface{
 	public $events_ins;
 
 	public function __construct(){
 		$this -> events_ins = Events::ins();
 	}
 
-	public function gen_event_create_template_instance($template_instance){
+	public function event_create_template_instance($template_instance){
 		$this -> events_ins -> module_call(
 			'Template.create_template_instance', 
 			compact('template_instance')
 		);
 	}
 
-	public function gen_event_start_making($template_name, $template_file, $inside_data, $template_instance){
+	public function event_start_making(String $template_name, String $template_file, Array $inside_data, $template_instance){
 		$this -> events_ins -> module_call(
 			'Template.start_making',
 			compact(
@@ -34,7 +38,7 @@ class TemplateDriver{
 		);
 	}
 
-	public function gen_event_ready_template($template_name, $template_instance){
+	public function event_ready_template(String $template_name, $template_instance){
 		$this -> events_ins -> module_call(
 			'Template.ready_template',
 			compact(
@@ -44,7 +48,7 @@ class TemplateDriver{
 		);
 	}
 
-	public function gen_event_start_joining($child_template_name, $inside_data){
+	public function event_start_joining(String $child_template_name, Array $inside_data){
 		$this -> events_ins -> module_call(
 			'Template.start_joining',
 			compact(
