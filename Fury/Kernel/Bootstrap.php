@@ -53,9 +53,9 @@ class Bootstrap{
 	private function init_app_file(){
 		// init app
 		if(isset(FCONF['app_file'])){
-			$path_to_routes_map_file = "{$this -> project_folder}/" . FCONF['app_file'];
-			if(file_exists($path_to_routes_map_file)){
-				include_once($path_to_routes_map_file);
+			$path_to_app_file = "{$this -> project_folder}/" . FCONF['app_file'];
+			if(file_exists($path_to_app_file)){
+				include_once($path_to_app_file);
 			}
 		}
 	}
