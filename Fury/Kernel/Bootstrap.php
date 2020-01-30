@@ -5,7 +5,7 @@ namespace Fury\Kernel;
 class Bootstrap{
 	public $project_folder;
 	public $db;
-	public $call_control;
+	protected $call_control;
 
 	public function __construct($project_folder){
 		$this -> project_folder = $project_folder;
