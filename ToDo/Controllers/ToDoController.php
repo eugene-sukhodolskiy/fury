@@ -24,7 +24,7 @@ class ToDoController extends \ToDo\Middleware\Controller{
 	}	
 
 	public function create_page(){
-		return $this -> create_template() -> make('todo.create');
+		return $this -> create_template() -> make('todo.create', ['router' => $this -> router]);
 	}
 
 	public function create($task){

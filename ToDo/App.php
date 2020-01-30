@@ -7,12 +7,12 @@ use Fury\Kernel\Events;
 use Fury\Drivers\TemplateDriver;
 use Fury\Modules\Template\Template;
 
-class App{
+class App extends \Fury\Kernel\BaseApp{
 	public $routes;
 	public $events;
 
 	public function __construct(){
-		$this -> events = Events::ins();
+		$this -> events = events();
 		$this -> routes = new AppRoutes($this);
 		Template::set_driver(new TemplateDriver());
 

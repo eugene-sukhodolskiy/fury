@@ -4,7 +4,7 @@
 		<h3>Create new task</h3>
 	</div>	
 </div>
-
+<? //route_to() ?>
 <form action="/create" method="post">
 	<div class="form-group">
 		<label for="task">Task Description</label>

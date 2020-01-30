@@ -11,7 +11,7 @@ class CallControl extends \Fury\Libs\Singleton{
 			$this -> bootstrap = $bootstrap;
 		}
 
-		$this -> bootstrap -> events -> handler('kernel:Bootstrap.app_finished', function($params){
+		events() -> handler('kernel:Bootstrap.app_finished', function($params){
 			$call_control = CallControl::ins();
 			if(!$call_control -> call_was_been){
 				Events::ins() -> kernel_call('CallControl.no_calls', []);
@@ -89,7 +89,7 @@ class CallControl extends \Fury\Libs\Singleton{
 
 	private function gen_event_leading_call($type, $route_template, $action, $params){
 		$this -> call_was_been = true;
-		$this -> bootstrap -> events -> kernel_call(
+		events() -> kernel_call(
 			'CallControl.leading_call', 
 			compact('type', 'route_template', 'action', 'params')
 		);
@@ -97,7 +97,7 @@ class CallControl extends \Fury\Libs\Singleton{
 
 	private function gen_event_completed_call($type, $route_template, $action, $params, $result){
 		$this -> call_was_been = true;
-		$this -> bootstrap -> events -> kernel_call(
+		events() -> kernel_call(
 			'CallControl.completed_call', 
 			compact('type', 'route_template', 'action', 'params', 'result')
 		);

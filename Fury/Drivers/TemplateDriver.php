@@ -9,14 +9,14 @@
 
 namespace Fury\Drivers;
 
-use \Fury\Kernel\Events;
 use \Fury\Modules\Template\DriverInterface;
+use \Fury\Kernel\AppContainer;
 
 class TemplateDriver implements DriverInterface{
 	public $events_ins;
 
 	public function __construct(){
-		$this -> events_ins = Events::ins();
+		$this -> events_ins = AppContainer::events();
 	}
 
 	public function event_create_template_instance($template_instance){

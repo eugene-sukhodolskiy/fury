@@ -2,7 +2,7 @@
 
 namespace Fury\Kernel;
 
-class Events extends \Fury\Libs\Singleton{
+class Events{
 	/**
 	 * Events handlers storage (map)
 	 *

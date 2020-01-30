@@ -1,5 +1,7 @@
 <?php 
 
+use Fury\Kernel\AppContainer;
+
 function dd($var, $die_flag = true){
 	ob_start();
 	var_dump($var);
@@ -187,4 +189,20 @@ function dd($var, $die_flag = true){
 	$dump .= '</div>' . $js;
 
 	echo $die_flag ? die($dump) : $dump;
+}
+
+function app(){
+	return AppContainer::app();
+}
+
+function bootstrap(){
+	return AppContainer::app();
+}
+
+function events(){
+	return AppContainer::events();
+}
+
+function logging(){
+	return AppContainer::logging();
 }

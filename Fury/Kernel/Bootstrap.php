@@ -5,15 +5,15 @@ namespace Fury\Kernel;
 class Bootstrap{
 	public $project_folder;
 	public $db;
-	public $router;
-	public $events;
 	public $call_control;
-	public $logging;
 
 	public function __construct($project_folder){
 		$this -> project_folder = $project_folder;
+		AppContainer::set_bootstrap($this);
+		$this -> init();
+	}
 
-		// init
+	protected function init(){
 		$this -> init_config();
 		$this -> init_consts();
 		$this -> init_logging();
@@ -61,7 +61,8 @@ class Bootstrap{
 	}
 
 	private function init_events(){
-		$this -> events = Events::ins();
+		$events = new Events();
+		AppContainer::set_events($events);
 	}
 
 	private function init_call_control(){
@@ -69,7 +70,8 @@ class Bootstrap{
 	}
 
 	private function init_logging(){
-		$this -> logging = Logging::ins();
+		$logging = new Logging();
+		AppContainer::set_logging($logging);
 	}
 
 	private function init_model(){
@@ -77,14 +79,14 @@ class Bootstrap{
 	}
 
 	private function ready_app_event(){
-		$this -> events -> kernel_call('Bootstrap.ready_app', ['bootstrap' => $this]);
+		events() -> kernel_call('Bootstrap.ready_app', ['bootstrap' => $this]);
 	}
 
 	private function app_starting_event(){
-		$this -> events -> kernel_call('Bootstrap.app_starting', ['bootstrap' => $this]);
+		events() -> kernel_call('Bootstrap.app_starting', ['bootstrap' => $this]);
 	}
 
 	private function app_finished_event(){
-		$this -> events -> kernel_call('Bootstrap.app_finished', ['bootstrap' => $this]);
+		events() -> kernel_call('Bootstrap.app_finished', ['bootstrap' => $this]);
 	}
 }
