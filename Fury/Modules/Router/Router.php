@@ -72,11 +72,7 @@ class Router implements RouterInterface{
 	public function route_to(String $action){
 		$routes_list = [];
 
-		foreach($this -> routes_map as $map_part){
-			$routes_list = array_merge($routes_list, $map_part);
-		}
-
-		$route = array_search($action, $routes_list);
+		$route = array_search($action, $this -> routes_map['uri']);
 
 		return $route === false ? '' : $route;
 	}

@@ -12,11 +12,13 @@ class App extends \Fury\Kernel\BaseApp{
 	public $events;
 
 	public function __construct(){
+		parent::__construct();
 		$this -> events = events();
 		$this -> routes = new AppRoutes($this);
 		Template::set_driver(new TemplateDriver());
 
 		$this -> event_handlers();
+		$this -> routes -> init_routes();
 	}
 
 	public function event_handlers(){

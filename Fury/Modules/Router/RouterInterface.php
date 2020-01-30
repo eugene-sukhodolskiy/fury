@@ -76,14 +76,14 @@ interface RouterInterface{
 	public function route_to(String $action);
 
 	/**
-	 * Get URL to action
+	 * Get URL to action. Only for URI
 	 *
 	 * @method urlto
 	 *
 	 * @param  String $action Controller in string
 	 * @param  Array $params [description]
 	 *
-	 * @example  urlto('Post@article') [return like "/post/post_id/23"]
+	 * @example  urlto('Post@article', [id => 23]) [return like "/post/post_id/23"]
 	 *
 	 * @return string
 	 */

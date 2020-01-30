@@ -11,7 +11,6 @@ class AppRoutes{
 	public function __construct($app){
 		$this -> app = $app;
 		$this -> router = new Router();
-		$this -> init_routes();
 	}
 
 	public function init_routes(){
