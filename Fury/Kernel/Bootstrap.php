@@ -88,7 +88,7 @@ class Bootstrap{
 	 * @return void
 	 */
 	public function init_db(){
-		if(isset(FCONF['db'])){
+		if(isset(FCONF['db']) and FCONF['default_db_wrap']){
 			$this -> db = new DB(FCONF['db']);
 		}
 	}

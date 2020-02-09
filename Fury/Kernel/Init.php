@@ -46,6 +46,7 @@ class Init{
 
 		$this -> bootstrap -> init_call_control();
 		$this -> bootstrap -> init_app_file();
+
 		$this -> bootstrap -> init_db();
 		$this -> bootstrap -> init_model();
 

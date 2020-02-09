@@ -3,6 +3,7 @@
 return [
 	"app_name" => "AppName",
 	"debug" => true,
+	"default_db_wrap" => true,
 	"db" => [
 		"dblib" => "mysql",
 		"host" => "127.0.0.1",

@@ -196,7 +196,7 @@ function app(){
 }
 
 function bootstrap(){
-	return AppContainer::app();
+	return AppContainer::bootstrap();
 }
 
 function events(){

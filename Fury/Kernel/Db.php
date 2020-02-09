@@ -8,7 +8,7 @@ class DB{
 	private $events_ins;
 
 	public function __construct($db_params){
-		$this -> events_ins = Events::ins();
+		$this -> events_ins = events();
 		return $this -> create_connect($db_params);
 	}
 
