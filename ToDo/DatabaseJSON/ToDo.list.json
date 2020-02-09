@@ -1,1 +1,1 @@
-[{"task":"And another task","check":true},{"task":"New task","check":false},{"task":"Hello world","check":true}]
+[{"task":"And another task","check":false},{"task":"New task","check":false},{"task":"Hello world","check":true}]
