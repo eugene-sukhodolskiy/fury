@@ -40,7 +40,7 @@ class CallControl extends \Fury\Libs\Singleton{
 		events() -> handler('kernel:Bootstrap.app_finished', function($params){
 			$call_control = CallControl::ins();
 			if(!$call_control -> call_was_been){
-				Events::ins() -> kernel_call('CallControl.no_calls', []);
+				events() -> kernel_call('CallControl.no_calls', []);
 			}
 		});
 	}
@@ -62,7 +62,10 @@ class CallControl extends \Fury\Libs\Singleton{
 
 		// make final params;
 		if($getpost_flag){
-			$route = explode(';', $src_route);
+			if(strpos($src_route, '?')){
+				list(, $src_route) = explode('?', $src_route);
+			}
+			$route = explode('&', $src_route);
 			$params = [];
 			foreach ($route as $i => $var) {
 				$params[$var] = $src_params[$var];

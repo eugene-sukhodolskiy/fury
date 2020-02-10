@@ -62,8 +62,17 @@ trait RouterImplementation{
 		$result_routes = [];
 
 		foreach ($routes_map_part as $route => $action) {
-			$route_vars = explode(';', $route);
+			if(strpos($route, '?')){
+				list($route_uri, $route_vars) = explode('?', $route);
+			}else{
+				$route_vars = $route;
+			}
+
+			$route_vars = explode('&', $route_vars);
 			$flag = true;
+			if(isset($route_uri) and $route_uri != $this -> uri){
+				$flag = false;
+			}
 
 			foreach ($route_vars as $i => $rvar) {
 				if(!isset($vars[$rvar])){

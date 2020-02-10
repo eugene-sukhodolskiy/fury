@@ -33,22 +33,28 @@ class Router implements RouterInterface{
 		}
 
 		$this -> uri = $_SERVER['REQUEST_URI'];
+		if(strpos($this -> uri, '?') !== false){
+			list($this -> uri) = explode('?', $this -> uri);
+		}
+		
 		$uri_length = strlen($this -> uri);
 		if($uri_length > 1 and $this -> uri[$uri_length - 1] == '/'){
 			$this -> uri = mb_substr($this -> uri, 0, -1);
 		}
 	}
 
-	public function get($route, $action){
+	public function get($route, $action, $static_uri = ''){
 		if(is_array($route)){
-			$route = implode(';', $route);
+			$route = implode('&', $route);
+			$route = strlen($static_uri) ? $static_uri . '?' . $route : $route;
 		}
 		$this -> add_route('get', $route, $action);
 	} 
 
-	public function post($route, $action){
+	public function post($route, $action, $static_uri = ''){
 		if(is_array($route)){
-			$route = implode(';', $route);
+			$route = implode('&', $route);
+			$route = strlen($static_uri) ? $static_uri . '?' . $route : $route;
 		}
 		$this -> add_route('post', $route, $action);
 	}
