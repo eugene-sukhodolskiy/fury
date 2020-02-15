@@ -78,15 +78,31 @@ class Router implements RouterInterface{
 	public function route_to(String $action){
 		$routes_list = [];
 
-		$route = array_search($action, $this -> routes_map['uri']);
+		$routes_map = array_merge($this -> routes_map['uri'], $this -> routes_map['get'], $this -> routes_map['post']);
+
+		$route = array_search($action, $routes_map);
 
 		return $route === false ? '' : $route;
 	}
 
 	public function urlto(String $action, Array $params = []){
 		$route_template = $this -> route_to($action);
-		$route_params = $this -> get_params_from_route_template($route_template);
-		$url = str_replace($route_params, $params, $route_template);
+		if(strpos($route_template, '?') === false){
+			$route_params = $this -> get_params_from_route_template($route_template);
+			$url = str_replace($route_params, $params, $route_template);
+		}else{
+			$route_params = [];
+
+			foreach($params as $var => $val){
+				$route_params[] = $var;
+				$params[$var] = $var . '=' . $val;
+			}
+
+			$route_template = explode('?', $route_template);
+			$route_template[1] = str_replace($route_params, $params, $route_template[1]);
+			$url = implode('?', $route_template);
+		}
+		
 		return $url;
 	}
 }
