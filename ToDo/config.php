@@ -3,7 +3,7 @@
 return [
 	"app_name" => "ToDo list",
 	"debug" => true,
-	"default_db_wrap" => true,
+	"default_db_wrap" => false,
 	"db" => [
 		"dblib" => "mysql",
 		"host" => "127.0.0.1",
