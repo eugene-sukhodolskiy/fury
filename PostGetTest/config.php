@@ -15,5 +15,5 @@ return [
 	"app_file" => "App.php",
 	"templates_folder" => "templates",
 	"logs_enable" => true,
-	"logs_folder" => "PostGetTest/logs"
+	"logs_folder" => "PostGetTest/Logs"
 ]; 

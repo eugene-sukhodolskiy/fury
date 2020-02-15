@@ -17,6 +17,8 @@ class App extends \Fury\Kernel\BaseApp{
 		events() -> handler('kernel:Bootstrap.ready_app', function($p){
 			app() -> router -> get(['p', 'id'], '\PostGetTest\Controllers\AppController@get_test', '/post');
 			app() -> router -> uri('/post', '\PostGetTest\Controllers\AppController@uri_test');
+			app() -> router -> uri('/uri/$p/$id', '\PostGetTest\Controllers\AppController@uri_with_params');
+			app() -> router -> uri('/', '\PostGetTest\Controllers\AppController@index');
 			app() -> router -> start_routing();
 		});
 
