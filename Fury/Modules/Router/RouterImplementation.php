@@ -188,7 +188,7 @@ trait RouterImplementation{
 		$template_parts = explode('/', $route_template);
 		$params = [];
 		foreach ($template_parts as $part) {
-			if($part[0] == '$'){
+			if(isset($part[0]) and $part[0] == '$'){
 				$params[] = $part;
 			}
 		}

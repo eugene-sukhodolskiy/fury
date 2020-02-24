@@ -86,6 +86,8 @@ class Logging extends \Fury\Libs\Singleton{
 		];
 
 		if(!file_exists($path_to_log_file)){
+			file_put_contents($path_to_log_file, '');
+			chmod($path_to_log_file, 0755);
 			return file_put_contents($path_to_log_file, json_encode([$session], JSON_UNESCAPED_SLASHES|JSON_PRETTY_PRINT));
 		}
 

@@ -63,7 +63,7 @@ interface RouterInterface{
 	public function start_routing();
 
 	/**
-	 * Get route by action. Only for URI
+	 * Get route by action.
 	 *
 	 * @method route_to
 	 *
@@ -76,7 +76,7 @@ interface RouterInterface{
 	public function route_to(String $action);
 
 	/**
-	 * Get URL to action. Only for URI
+	 * Get URL to action. With params or without params
 	 *
 	 * @method urlto
 	 *
