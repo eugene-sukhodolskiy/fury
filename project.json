@@ -1,0 +1,19 @@
+{
+    "name": "Fury framework",
+    "ver": "1.0",
+    "author": "E. Sukhodolskiy ",
+    "tags": [
+        "personal",
+        "devtools",
+        "framework",
+        "custom"
+    ],
+    "type": "web",
+    "main_lang": "php",
+    "status": "open",
+    "project_color": "#09299E",
+    "git_url": "https://github.com/eugene-sukhodolskiy/fury",
+    "release_url": null,
+    "favicon": null,
+    "description": "PHP Framework for small and medium web projects"
+}
